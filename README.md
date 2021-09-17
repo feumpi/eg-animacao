@@ -24,6 +24,12 @@ Faça uma animação 3D em Python, usando Numpy e Matplotlib. Os requisitos do t
 
 ## Como usar
 
+Instale as bibliotecas necessárias, listadas no arquivo **dependencias.txt**
+
+```
+pip install -r bibliotecas.txt
+```
+
 Execute o arquivo **main.py**:
 
 ```bash
