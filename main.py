@@ -36,6 +36,10 @@ eixos = plt.axes(projection='3d')
 eixos.azim = -45
 eixos.elev = 30
 
+eixos.set_xlim3d(-250, 250)
+eixos.set_ylim3d(-250, 250)
+eixos.set_zlim3d(0, 1000)
+
 # Corrige a escala dos eixos
 eixos.auto_scale_xyz(
     dinossauro.matriz[0, :], dinossauro.matriz[1, :], dinossauro.matriz[2, :])
@@ -43,10 +47,13 @@ eixos.auto_scale_xyz(
 # Rotação inicial do dinosauro
 dinossauro.transformar(rotacao_x(90), rotacao_z(45))
 
+# Posição inicial do meteoro
+meteoro.transformar(translacao(250, 250, 800))
+
 pontos_dino = dinossauro.plotar(eixos, 'seagreen')
 pontos_meteoro = meteoro.plotar(eixos, 'k')
 
-anim = dinossauro.animar(pontos_dino, figura, eixos, meia_volta_descer, 30)
+#anim = dinossauro.animar(pontos_dino, figura, eixos, meia_volta_descer, 30)
 #anim2 = meteoro.animar(pontos_meteoro, figura, eixos, ao_infinito, 30)
 
 # Exibir a plotagem
