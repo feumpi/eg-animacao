@@ -24,6 +24,7 @@ from matplotlib import pyplot
 from objeto import Objeto
 from utilidades import normalizar_eixos
 from transformacoes import translacao, rotacao_x, rotacao_y, rotacao_z
+from animacoes import meia_volta_descer, ao_infinito
 
 
 dinossauro = Objeto("dinossauro.stl")
@@ -35,19 +36,18 @@ eixos = plt.axes(projection='3d')
 eixos.azim = -45
 eixos.elev = 30
 
-# Rotação inicial do dinosauro
-#dinossauro.matriz = np.dot(transformacoes.rotacao_x(90), dinossauro.matriz)
-#dinossauro.matriz = np.dot(transformacoes.rotacao_z(45), dinossauro.matriz)
-dinossauro.transformar(rotacao_x(90), rotacao_z(45))
-dinossauro.plotar(eixos, 'seagreen')
-
-meteoro.plotar(eixos, 'k')
-
-
 # Corrige a escala dos eixos
 eixos.auto_scale_xyz(
     dinossauro.matriz[0, :], dinossauro.matriz[1, :], dinossauro.matriz[2, :])
-normalizar_eixos(eixos)
+
+# Rotação inicial do dinosauro
+dinossauro.transformar(rotacao_x(90), rotacao_z(45))
+
+pontos_dino = dinossauro.plotar(eixos, 'seagreen')
+pontos_meteoro = meteoro.plotar(eixos, 'k')
+
+anim = dinossauro.animar(pontos_dino, figura, eixos, meia_volta_descer, 30)
+#anim2 = meteoro.animar(pontos_meteoro, figura, eixos, ao_infinito, 30)
 
 # Exibir a plotagem
-plt.show()
+plt.show(block=True)
