@@ -1,24 +1,7 @@
-from stl import mesh
 import numpy as np
 
 
-class Objeto:
-    def __init__(self, objeto):  # Inicializa extraindo pontos x, y, z, vetores do STL e criando a matriz com os pontos em coordenadas homogêneas
-        self.pontos_x = objeto.x.flatten()
-        self.pontos_y = objeto.y.flatten()
-        self.pontos_z = objeto.z.flatten()
-        self.vetores = objeto.vectors
-        self.matriz = np.array([self.pontos_x.T, self.pontos_y.T,
-                                self.pontos_z.T, np.ones(self.pontos_x.size)])
-
-
-# Lê um arquivo STL com o nome recebido e retorna um objeto com seus pontos x, y, z, seus vetores e a matriz com coordenadas homogêneas
-def carregar_stl(nome):
-    objeto = mesh.Mesh.from_file(nome)
-    return Objeto(objeto)
-
-
-# Normaliza a escala de todos os eixos para não distorcer o objeto
+# Normaliza a escala de todos os eixos para não distorcer a plotagem
 def normalizar_eixos(eixos):
 
     # Obter os limites x, y e z atuais

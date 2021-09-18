@@ -21,26 +21,26 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 from matplotlib import pyplot
 
-from utilidades import carregar_stl, normalizar_eixos
+from objeto import Objeto
+from utilidades import normalizar_eixos
+from transformacoes import translacao, rotacao_x, rotacao_y, rotacao_z
 
 
-dinossauro = carregar_stl(
-    "dinossauro.stl")
+dinossauro = Objeto("dinossauro.stl")
 
 # Criar a plotagem
-figura = plt.figure(1, figsize=[10, 10])
+figura = plt.figure(1, figsize=[7, 7])
 eixos = plt.axes(projection='3d')
+eixos.azim = -45
+eixos.elev = 30
 
-# Faces do objeto
-eixos.add_collection3d(mplot3d.art3d.Poly3DCollection(dinossauro.vetores))
+# Rotação inicial do dinosauro
+#dinossauro.matriz = np.dot(transformacoes.rotacao_x(90), dinossauro.matriz)
+#dinossauro.matriz = np.dot(transformacoes.rotacao_z(45), dinossauro.matriz)
+dinossauro.transformar(rotacao_x(90))
+dinossauro.transformar(rotacao_z(45))
+dinossauro.plotar(eixos, 'seagreen')
 
-# Contornos das faces
-eixos.add_collection3d(mplot3d.art3d.Line3DCollection(
-    dinossauro.vetores, colors='k', linewidths=0.2, linestyles='-'))
-
-# Vertices
-eixos.plot(dinossauro.matriz[0, :],
-           dinossauro.matriz[1, :], dinossauro.matriz[2, :], 'r.')
 
 # Corrige a escala dos eixos
 eixos.auto_scale_xyz(
