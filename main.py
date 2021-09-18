@@ -27,6 +27,7 @@ from transformacoes import translacao, rotacao_x, rotacao_y, rotacao_z
 
 
 dinossauro = Objeto("dinossauro.stl")
+meteoro = Objeto("meteoro.stl")
 
 # Criar a plotagem
 figura = plt.figure(1, figsize=[7, 7])
@@ -37,9 +38,10 @@ eixos.elev = 30
 # Rotação inicial do dinosauro
 #dinossauro.matriz = np.dot(transformacoes.rotacao_x(90), dinossauro.matriz)
 #dinossauro.matriz = np.dot(transformacoes.rotacao_z(45), dinossauro.matriz)
-dinossauro.transformar(rotacao_x(90))
-dinossauro.transformar(rotacao_z(45))
+dinossauro.transformar(rotacao_x(90), rotacao_z(45))
 dinossauro.plotar(eixos, 'seagreen')
+
+meteoro.plotar(eixos, 'k')
 
 
 # Corrige a escala dos eixos

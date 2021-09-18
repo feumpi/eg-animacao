@@ -17,16 +17,18 @@ class Objeto:
                                 self.pontos_z.T, np.ones(self.pontos_x.size)])
 
     # Aplica uma matriz de transformação no objeto
-    def transformar(self, matriz):
+    def transformar(self, *matrizes):
 
-        # Aplica a transformação na prórpia matriz
-        self.matriz = np.dot(matriz, self.matriz)
+        for matriz in matrizes:
+            # Aplica a transformação na prórpia matriz
+            self.matriz = np.dot(matriz, self.matriz)
 
-        # Aplica a transformação no próprio objeto STL e atualiza os vetores
-        self.objeto.transform(matriz)
-        self.vetores = self.objeto.vectors
+            # Aplica a transformação no próprio objeto STL e atualiza os vetores
+            self.objeto.transform(matriz)
+            self.vetores = self.objeto.vectors
 
     # Plota o objeto (pontos e faces) nos eixos especificados
+
     def plotar(self, eixos, cor):
 
         # Pontos da matriz, em vermelho
