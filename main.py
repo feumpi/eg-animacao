@@ -24,10 +24,12 @@ from matplotlib import pyplot
 from objeto import Objeto
 from utilidades import ajustar_eixos, ajustar_escala, normalizar_eixos
 from transformacoes import translacao, rotacao_x, rotacao_y, rotacao_z
-from animacoes import animar_objetos, caminhando, extincao, ao_infinito, anim_teste
+from animacoes import animar_objetos, caminhando, extincao, ao_infinito
 
 # Inicializa os objetos a partir dos arquivos
-dinossauro = Objeto('dinossauro.stl', 'royalblue')
+dino_azul = Objeto('dinossauro.stl', 'royalblue')
+dino_amarelo = Objeto('dinossauro.stl', 'gold')
+dino_verde = Objeto('dinossauro.stl', 'seagreen')
 meteoro = Objeto('meteoro.stl', 'k')
 
 # Cria a figura e os eixos 3D
@@ -39,24 +41,33 @@ ajustar_eixos(eixos, azimute=-45, elevacao=30, tamanho_x=500,
               tamanho_y=500, tamanho_z=1000)
 
 # Posição e rotação inicial dos objetos
-dinossauro.transformar(rotacao_x(90),
-                       rotacao_z(-90),
-                       translacao(-350, -300, 0))
+dino_azul.transformar(rotacao_x(90),
+                      rotacao_z(-90),
+                      translacao(-350, -300, 0))
 
-meteoro.transformar(translacao(250, 250, 1500))
+dino_amarelo.transformar(rotacao_x(90),
+                         rotacao_z(90),
+                         translacao(350, 300, 0))
+
+dino_verde.transformar(rotacao_x(90), rotacao_z(135))
+
+meteoro.transformar(translacao(500, 500, 2500))
 
 # Plotagem inicial dos objetos
-dinossauro.plotar(eixos)
+dino_azul.plotar(eixos)
+dino_amarelo.plotar(eixos)
 meteoro.plotar(eixos)
+dino_verde.plotar(eixos)
+
 
 animar_objetos(eixos, caminhando, frames=30, intervalo=0.01,
-               objetos=(dinossauro, meteoro))
+               objetos=(dino_azul, dino_amarelo, dino_verde, meteoro))
 
 animar_objetos(eixos, extincao, frames=10, intervalo=0.01,
-               objetos=(dinossauro, meteoro))
+               objetos=(dino_azul, dino_amarelo, dino_verde, meteoro))
 
 animar_objetos(eixos, ao_infinito, frames=10, intervalo=0.01,
-               objetos=(dinossauro, meteoro))
+               objetos=(dino_azul, dino_amarelo, dino_verde, meteoro))
 
 # Exibir a plotagem
 plt.show()

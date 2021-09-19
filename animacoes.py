@@ -6,7 +6,7 @@ from utilidades import ajustar_eixos
 # Executa uma função de animação para os objetos nos eixos com duração e intervalo especificados
 def animar_objetos(eixos, func_animacao, frames, intervalo, objetos):
 
-    dinossauro, meteoro = objetos
+    dino_azul, dino_amarelo, dino_verde, meteoro = objetos
 
     # Iteração de frames
     for i in range(frames):
@@ -17,7 +17,8 @@ def animar_objetos(eixos, func_animacao, frames, intervalo, objetos):
                       tamanho_y=500, tamanho_z=1000)
 
         # Aplica a função de animação para o frame atual
-        func_animacao(i, frames, objetos=(dinossauro, meteoro))
+        func_animacao(i, frames, objetos=(
+            dino_azul, dino_amarelo, dino_verde, meteoro))
 
         # Plota os novos objetos
         for objeto in objetos:
@@ -27,50 +28,36 @@ def animar_objetos(eixos, func_animacao, frames, intervalo, objetos):
         plt.pause(intervalo)
 
 
-# Rotaciona no próprio eixo, translada e depois rotaciona em relação a origem
-def anim_teste(i, frames, objetos):
-
-    dinossauro, meteoro = objetos
-
-    # Incrementos por frame
-    inc_r = 180 / (frames/3)
-    inc_t = 200 / (frames/3)
-
-    if(i < frames/3):  # Até 1/3 da animação
-        dinossauro.transformar(rotacao_z(inc_r), origem=True)
-        meteoro.transformar(rotacao_z(inc_r), origem=True)
-
-    elif(i < 2*frames/3):  # Até 2/3 da animação
-        dinossauro.transformar(translacao(inc_t, inc_t, inc_t))
-        meteoro.transformar(translacao(-inc_t, -inc_t, -inc_t))
-
-    else:  # Restante da animação
-        dinossauro.transformar(rotacao_z(inc_r))
-        meteoro.transformar(rotacao_z(inc_r))
-
-
 def caminhando(i, frames, objetos):
-    dinossauro, meteoro = objetos
+    dino_azul, dino_amarelo, dino_verde, meteoro = objetos
 
     inc_t = 600 / (frames/3)
     inc_r = -90 / (frames/3)
 
+    inc_r2 = 180 / (frames/3)
+    inc_t2 = 400 / (frames/3)
+
     if(i < frames/3):  # Até 1/3 da animação
-        dinossauro.transformar(translacao(0, inc_t, 0))
+        dino_azul.transformar(translacao(0, inc_t, 0))
+        dino_amarelo.transformar(translacao(0, -inc_t, 0))
+        dino_verde.transformar(rotacao_z(inc_r2), origem=True)
 
     elif(i < 2*frames/3):  # Até 2/3 da animação
-        dinossauro.transformar(rotacao_z(inc_r), origem=True)
+        dino_azul.transformar(rotacao_z(inc_r), origem=True)
+        dino_amarelo.transformar(rotacao_z(inc_r), origem=True)
 
     else:  # Restante da animação
-        dinossauro.transformar(translacao(inc_t, 0, 0))
+        dino_azul.transformar(translacao(inc_t, 0, 0))
+        dino_amarelo.transformar(translacao(-inc_t, 0, 0))
+        dino_verde.transformar(translacao(-inc_t2, inc_t2, 0))
 
 
 def extincao(i, frames, objetos):
 
-    dinossauro, meteoro = objetos
+    dino_azul, dino_amarelo, dino_verde, meteoro = objetos
 
-    inc_t = 250 / frames
-    inc_tz = 1500 / frames
+    inc_t = 500 / frames
+    inc_tz = 2500 / frames
     inc_r = (360*5) / frames
 
     meteoro.transformar(translacao(-inc_t, -inc_t, -inc_tz))
@@ -79,11 +66,17 @@ def extincao(i, frames, objetos):
 
 def ao_infinito(i, frames, objetos):
 
-    dinossauro, meteoro = objetos
+    dino_azul, dino_amarelo, dino_verde, meteoro = objetos
 
     inc_t = 500 / frames
     inc_tz = 1500 / frames
     inc_r = 180 / frames
 
-    dinossauro.transformar(translacao(inc_t, inc_t, inc_tz))
-    dinossauro.transformar(rotacao_x(inc_r), rotacao_z(inc_r), origem=True)
+    dino_azul.transformar(translacao(inc_t, inc_t, inc_tz))
+    dino_azul.transformar(rotacao_x(inc_r), rotacao_z(inc_r), origem=True)
+
+    dino_amarelo.transformar(translacao(-inc_t, -inc_t, inc_tz))
+    dino_amarelo.transformar(rotacao_x(-inc_r), rotacao_z(-inc_r), origem=True)
+
+    dino_verde.transformar(translacao(-inc_t, inc_t, inc_tz))
+    dino_amarelo.transformar(rotacao_y(inc_r), origem=True)
