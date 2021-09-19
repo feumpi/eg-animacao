@@ -6,8 +6,11 @@ def ajustar_eixos(eixos, azimute, elevacao, tamanho_x, tamanho_y, tamanho_z):
     eixos.azim = azimute
     eixos.elev = elevacao
 
+    # x e y metade negativo e metade positivo (esquerda e direita da origem)
     eixos.set_xlim3d(-(tamanho_x/2), tamanho_x/2)
     eixos.set_ylim3d(-(tamanho_y/2), tamanho_y/2)
+
+    # z apenas positivo (para cima)
     eixos.set_zlim3d(0, tamanho_z)
 
 

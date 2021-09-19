@@ -31,7 +31,7 @@ class Objeto:
     # Aplica uma matriz de transformação no objeto
     def transformar(self, *matrizes, inc_distancia=True, origem=False):
 
-        # Move para a origem antes de aplicar as transformações
+        # Move para a origem antes de aplicar as transformações, se solicitado
         if origem:
             self.transformar(translacao(-self.dist_origem_x,
                                         -self.dist_origem_y, -self.dist_origem_z), inc_distancia=False)
@@ -45,10 +45,10 @@ class Objeto:
                 self.dist_origem_y += matriz[1][3]
                 self.dist_origem_z += matriz[2][3]
 
-            # Aplica a transformação na prórpia matriz
+            # Aplica a transformação na própria matriz
             self.matriz = np.dot(matriz, self.matriz)
 
-            # Aplica a transformação no próprio objeto STL e atualiza os vetores
+            # Aplica a transformação no próprio objeto (Mesh STL) e atualiza os vetores para plotagem das faces
             self.objeto.transform(matriz)
             self.vetores = self.objeto.vectors
 
@@ -60,7 +60,7 @@ class Objeto:
     def plotar(self, eixos):  # Plota o objeto (pontos e faces) nos eixos especificados
 
         # Pontos da matriz, em vermelho
-        pontos = eixos.plot(self.matriz[0, :],
+        eixos.plot(self.matriz[0, :],
                             self.matriz[1, :], self.matriz[2, :], '.r')
 
         # Faces do objeto, na cor especificada

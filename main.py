@@ -26,27 +26,27 @@ from utilidades import ajustar_eixos, ajustar_escala, normalizar_eixos
 from transformacoes import translacao, rotacao_x, rotacao_y, rotacao_z
 from animacoes import animar_objetos, anim_teste
 
-
+# Inicializa os objetos a partir dos arquivos
 dinossauro = Objeto('dinossauro.stl', 'seagreen')
 meteoro = Objeto('meteoro.stl', 'k')
 
-# Criar a plotagem
+# Cria a figura e os eixos 3D
 figura = plt.figure(1, figsize=[7, 7])
 eixos = plt.axes(projection='3d')
 
-# Ajusta a visualização
+# Ajusta o tamanho e visualização dos eixos
 ajustar_eixos(eixos, azimute=-45, elevacao=30, tamanho_x=500,
               tamanho_y=500, tamanho_z=1000)
 
-# Rotação inicial do dinosauro
+# Posição e rotação inicial dos objetos
 dinossauro.transformar(rotacao_x(90), rotacao_z(45))
-
-# Posição inicial do meteoro
 meteoro.transformar(translacao(250, 250, 800))
 
+# Plotagem inicial dos objetos
 dinossauro.plotar(eixos)
 meteoro.plotar(eixos)
 
+# Animação de teste
 animar_objetos(eixos, anim_teste, frames=30, intervalo=0.01,
                objetos=(dinossauro, meteoro))
 

@@ -3,10 +3,12 @@ from transformacoes import translacao, rotacao_x, rotacao_y, rotacao_z
 from utilidades import ajustar_eixos
 
 
+# Executa uma função de animação para os objetos nos eixos com duração e intervalo especificados
 def animar_objetos(eixos, func_animacao, frames, intervalo, objetos):
 
     dinossauro, meteoro = objetos
 
+    # Iteração de frames
     for i in range(frames):
 
         # Limpa a plotagem atual e reajusta os eixos
@@ -25,22 +27,23 @@ def animar_objetos(eixos, func_animacao, frames, intervalo, objetos):
         plt.pause(intervalo)
 
 
+# Rotaciona no próprio eixo, translada e depois rotaciona em relação a origem
 def anim_teste(i, frames, objetos):
 
     dinossauro, meteoro = objetos
 
-    inc = 180 / (frames/2)
-    inc_t = 200 / (frames/2)
+    # Incrementos por frame
+    inc_r = 180 / (frames/3)
+    inc_t = 200 / (frames/3)
 
-    if(i < frames/3):
+    if(i < frames/3):  # Até 1/3 da animação
+        dinossauro.transformar(rotacao_z(inc_r), origem=True)
+        meteoro.transformar(rotacao_z(inc_r), origem=True)
 
-        dinossauro.transformar(rotacao_z(inc), origem=True)
-        meteoro.transformar(rotacao_z(inc), origem=True)
-
-    elif(i < 2*frames/3):
+    elif(i < 2*frames/3):  # Até 2/3 da animação
         dinossauro.transformar(translacao(inc_t, inc_t, inc_t))
         meteoro.transformar(translacao(-inc_t, -inc_t, -inc_t))
 
-    else:
-        dinossauro.transformar(rotacao_z(inc))
-        meteoro.transformar(rotacao_z(inc), origem=True)
+    else:  # Restante da animação
+        dinossauro.transformar(rotacao_z(inc_r))
+        meteoro.transformar(rotacao_z(inc_r))
