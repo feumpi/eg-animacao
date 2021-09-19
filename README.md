@@ -27,7 +27,7 @@ Faça uma animação 3D em Python, usando Numpy e Matplotlib. Os requisitos do t
 Instale as bibliotecas necessárias, listadas no arquivo **dependencias.txt**
 
 ```
-pip install -r bibliotecas.txt
+pip install -r dependencias.txt
 ```
 
 Execute o arquivo **main.py**:
@@ -41,6 +41,10 @@ Por exemplo, em ambiente Ubuntu:
 ```bash
 python3 main.py
 ```
+
+## A animação
+
+A animação consiste em 3 dinossauros, gerados a partir do mesmo modelo 3D STL e plotados em cores diferentes, caminhando pelo "chão" até a queda de um meteoro, que os impulsiona pra longe.
 
 ## Funcionamento do programa
 
@@ -56,9 +60,11 @@ Nesse construtor, o arquivo será carregado e as propriedades internas como a ma
 
 ### Figura e eixos
 
-A figura e os eixos do `matplotlib.pyplot` são criados e a função auxiliar `utilidades.ajustar_eixos` cuida de configurar os tamanhos e a posição de visualização:
+A figura e os eixos do `matplotlib.pyplot` são criados com a função auxiliar `utilidades.criar_eixos` e `utilidades.ajustar_eixos` cuida de configurar os tamanhos e a posição de visualização:
 
 ```py
+figura, eixos = criar_eixos()
+
 ajustar_eixos(eixos, azimute=-45, elevacao=30, tamanho_x=500,
               tamanho_y=500, tamanho_z=1000)
 ```
@@ -96,7 +102,7 @@ animar_objetos(eixos, anim_teste, frames=30, intervalo=0.01,
 
 Os parâmetros _frames_ e _intervalo_ controlam a duração da animação como a quantidade de fragmentos dela e o intervalo entre cada um, respectivamente.
 
-Ainda em, `animacoes.animar_objetos` ocorre uma iteração de frames em i (de 0 até frames - 1). Em cada iteração, a plotagem é limpa com `plt.cla`, as propriedades dos eixos são reajustadas com `ajustar_eixos` e objetos envolvidos são transformados pela _função de animação_ e depois redesenhados com `Objeto.plotar`.
+Ainda em `animacoes.animar_objetos` ocorre uma iteração de frames em i (de 0 até frames - 1). Em cada iteração, a plotagem é limpa com `plt.cla`, as propriedades dos eixos são reajustadas com `ajustar_eixos` e objetos envolvidos são transformados pela _função de animação_ e depois redesenhados com `Objeto.plotar`.
 
 As funções de animação (todas as outras do módulo), recebem a lista de objetos envolvidos na animação, o frame atual `i` e decidem como transformá-los de acordo com ele:
 

@@ -1,10 +1,7 @@
-from numpy.core.fromnumeric import repeat
-from transformacoes import rotacao_z, translacao
+from transformacoes import translacao
 from stl import mesh
 import numpy as np
 from mpl_toolkits import mplot3d
-from matplotlib import animation
-import matplotlib.pyplot as plt
 
 from utilidades import ajustar_escala, normalizar_eixos
 
@@ -61,7 +58,7 @@ class Objeto:
 
         # Pontos da matriz, em vermelho
         eixos.plot(self.matriz[0, :],
-                            self.matriz[1, :], self.matriz[2, :], '.r')
+                   self.matriz[1, :], self.matriz[2, :], '.r')
 
         # Faces do objeto, na cor especificada
         eixos.add_collection3d(mplot3d.art3d.Poly3DCollection(

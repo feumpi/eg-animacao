@@ -28,12 +28,15 @@ def animar_objetos(eixos, func_animacao, frames, intervalo, objetos):
         plt.pause(intervalo)
 
 
-def caminhando(i, frames, objetos):
+# Move e rotaciona os 3 dinossauros em diferentes direções e sentidos
+def dinos_caminhando(i, frames, objetos):
     dino_azul, dino_amarelo, dino_verde, meteoro = objetos
 
+    # Dinos azul e amarelo
     inc_t = 600 / (frames/3)
     inc_r = -90 / (frames/3)
 
+    # Dino verde
     inc_r2 = 180 / (frames/3)
     inc_t2 = 400 / (frames/3)
 
@@ -52,25 +55,29 @@ def caminhando(i, frames, objetos):
         dino_verde.transformar(translacao(-inc_t2, inc_t2, 0))
 
 
-def extincao(i, frames, objetos):
+# Move o meteoro em diagonal, em direção à origem, enquanto rotaciona no próprio eixo
+def meteoro_caindo(i, frames, objetos):
 
     dino_azul, dino_amarelo, dino_verde, meteoro = objetos
 
-    inc_t = 500 / frames
-    inc_tz = 2500 / frames
-    inc_r = (360*5) / frames
+    # Incrementos
+    inc_t = 500 / frames  # translação x e y
+    inc_tz = 2500 / frames  # translação z
+    inc_r = (360*5) / frames  # rotação
 
     meteoro.transformar(translacao(-inc_t, -inc_t, -inc_tz))
     meteoro.transformar(rotacao_z(inc_r), rotacao_x(inc_r), origem=True)
 
 
-def ao_infinito(i, frames, objetos):
+# Move e rotaciona os 3 dinossauros em resposta ao impacto do meteoro
+def apos_impacto(i, frames, objetos):
 
     dino_azul, dino_amarelo, dino_verde, meteoro = objetos
 
-    inc_t = 500 / frames
-    inc_tz = 1500 / frames
-    inc_r = 180 / frames
+    # Incrementos
+    inc_t = 500 / frames  # translação x e y
+    inc_tz = 1500 / frames  # translação z
+    inc_r = 180 / frames  # rotação
 
     dino_azul.transformar(translacao(inc_t, inc_t, inc_tz))
     dino_azul.transformar(rotacao_x(inc_r), rotacao_z(inc_r), origem=True)
@@ -79,4 +86,4 @@ def ao_infinito(i, frames, objetos):
     dino_amarelo.transformar(rotacao_x(-inc_r), rotacao_z(-inc_r), origem=True)
 
     dino_verde.transformar(translacao(-inc_t, inc_t, inc_tz))
-    dino_amarelo.transformar(rotacao_y(inc_r), origem=True)
+    dino_verde.transformar(rotacao_x(-inc_r), rotacao_y(inc_r), origem=True)

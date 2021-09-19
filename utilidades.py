@@ -1,4 +1,12 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Retorna a figura e os eixos do matplotlib
+def criar_eixos():
+    figura = plt.figure(1, figsize=[7, 7])
+    eixos = plt.axes(projection='3d')
+    return figura, eixos
 
 
 # Ajusta o tamanho dos eixos e a posição de visualização

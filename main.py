@@ -18,13 +18,11 @@ Faça uma animação 3D em Python, usando Numpy e Matplotlib. Os requisitos do t
 from stl import mesh
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
-from matplotlib import pyplot
 
 from objeto import Objeto
-from utilidades import ajustar_eixos, ajustar_escala, normalizar_eixos
-from transformacoes import translacao, rotacao_x, rotacao_y, rotacao_z
-from animacoes import animar_objetos, caminhando, extincao, ao_infinito
+from utilidades import criar_eixos, ajustar_eixos
+from transformacoes import translacao, rotacao_x, rotacao_z
+from animacoes import animar_objetos, dinos_caminhando, meteoro_caindo, apos_impacto
 
 # Inicializa os objetos a partir dos arquivos
 dino_azul = Objeto('dinossauro.stl', 'royalblue')
@@ -33,8 +31,7 @@ dino_verde = Objeto('dinossauro.stl', 'seagreen')
 meteoro = Objeto('meteoro.stl', 'k')
 
 # Cria a figura e os eixos 3D
-figura = plt.figure(1, figsize=[7, 7])
-eixos = plt.axes(projection='3d')
+figura, eixos = criar_eixos()
 
 # Ajusta o tamanho e visualização dos eixos
 ajustar_eixos(eixos, azimute=-45, elevacao=30, tamanho_x=500,
@@ -56,17 +53,18 @@ meteoro.transformar(translacao(500, 500, 2500))
 # Plotagem inicial dos objetos
 dino_azul.plotar(eixos)
 dino_amarelo.plotar(eixos)
-meteoro.plotar(eixos)
 dino_verde.plotar(eixos)
+meteoro.plotar(eixos)
 
 
-animar_objetos(eixos, caminhando, frames=30, intervalo=0.01,
+# Executa as animações
+animar_objetos(eixos, dinos_caminhando, frames=30, intervalo=0.01,
                objetos=(dino_azul, dino_amarelo, dino_verde, meteoro))
 
-animar_objetos(eixos, extincao, frames=10, intervalo=0.01,
+animar_objetos(eixos, meteoro_caindo, frames=15, intervalo=0.01,
                objetos=(dino_azul, dino_amarelo, dino_verde, meteoro))
 
-animar_objetos(eixos, ao_infinito, frames=10, intervalo=0.01,
+animar_objetos(eixos, apos_impacto, frames=15, intervalo=0.01,
                objetos=(dino_azul, dino_amarelo, dino_verde, meteoro))
 
 # Exibir a plotagem
