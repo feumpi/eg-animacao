@@ -47,3 +47,43 @@ def anim_teste(i, frames, objetos):
     else:  # Restante da animação
         dinossauro.transformar(rotacao_z(inc_r))
         meteoro.transformar(rotacao_z(inc_r))
+
+
+def caminhando(i, frames, objetos):
+    dinossauro, meteoro = objetos
+
+    inc_t = 600 / (frames/3)
+    inc_r = -90 / (frames/3)
+
+    if(i < frames/3):  # Até 1/3 da animação
+        dinossauro.transformar(translacao(0, inc_t, 0))
+
+    elif(i < 2*frames/3):  # Até 2/3 da animação
+        dinossauro.transformar(rotacao_z(inc_r), origem=True)
+
+    else:  # Restante da animação
+        dinossauro.transformar(translacao(inc_t, 0, 0))
+
+
+def extincao(i, frames, objetos):
+
+    dinossauro, meteoro = objetos
+
+    inc_t = 250 / frames
+    inc_tz = 1500 / frames
+    inc_r = (360*5) / frames
+
+    meteoro.transformar(translacao(-inc_t, -inc_t, -inc_tz))
+    meteoro.transformar(rotacao_z(inc_r), rotacao_x(inc_r), origem=True)
+
+
+def ao_infinito(i, frames, objetos):
+
+    dinossauro, meteoro = objetos
+
+    inc_t = 500 / frames
+    inc_tz = 1500 / frames
+    inc_r = 180 / frames
+
+    dinossauro.transformar(translacao(inc_t, inc_t, inc_tz))
+    dinossauro.transformar(rotacao_x(inc_r), rotacao_z(inc_r), origem=True)
