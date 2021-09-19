@@ -22,27 +22,21 @@ from mpl_toolkits import mplot3d
 from matplotlib import pyplot
 
 from objeto import Objeto
-from utilidades import normalizar_eixos
+from utilidades import ajustar_eixos, ajustar_escala, normalizar_eixos
 from transformacoes import translacao, rotacao_x, rotacao_y, rotacao_z
-from animacoes import meia_volta_descer, ao_infinito
+from animacoes import animar_objetos, anim_teste
 
 
-dinossauro = Objeto("dinossauro.stl")
-meteoro = Objeto("meteoro.stl")
+dinossauro = Objeto('dinossauro.stl', 'seagreen')
+meteoro = Objeto('meteoro.stl', 'k')
 
 # Criar a plotagem
 figura = plt.figure(1, figsize=[7, 7])
 eixos = plt.axes(projection='3d')
-eixos.azim = -45
-eixos.elev = 30
 
-eixos.set_xlim3d(-250, 250)
-eixos.set_ylim3d(-250, 250)
-eixos.set_zlim3d(0, 1000)
-
-# Corrige a escala dos eixos
-eixos.auto_scale_xyz(
-    dinossauro.matriz[0, :], dinossauro.matriz[1, :], dinossauro.matriz[2, :])
+# Ajusta a visualização
+ajustar_eixos(eixos, azimute=-45, elevacao=30, tamanho_x=500,
+              tamanho_y=500, tamanho_z=1000)
 
 # Rotação inicial do dinosauro
 dinossauro.transformar(rotacao_x(90), rotacao_z(45))
@@ -50,11 +44,11 @@ dinossauro.transformar(rotacao_x(90), rotacao_z(45))
 # Posição inicial do meteoro
 meteoro.transformar(translacao(250, 250, 800))
 
-pontos_dino = dinossauro.plotar(eixos, 'seagreen')
-pontos_meteoro = meteoro.plotar(eixos, 'k')
+dinossauro.plotar(eixos)
+meteoro.plotar(eixos)
 
-#anim = dinossauro.animar(pontos_dino, figura, eixos, meia_volta_descer, 30)
-#anim2 = meteoro.animar(pontos_meteoro, figura, eixos, ao_infinito, 30)
+animar_objetos(eixos, anim_teste, frames=30, intervalo=0.01,
+               objetos=(dinossauro, meteoro))
 
 # Exibir a plotagem
-plt.show(block=True)
+plt.show()

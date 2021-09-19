@@ -1,6 +1,22 @@
 import numpy as np
 
 
+# Ajusta o tamanho dos eixos e a posição de visualização
+def ajustar_eixos(eixos, azimute, elevacao, tamanho_x, tamanho_y, tamanho_z):
+    eixos.azim = azimute
+    eixos.elev = elevacao
+
+    eixos.set_xlim3d(-(tamanho_x/2), tamanho_x/2)
+    eixos.set_ylim3d(-(tamanho_y/2), tamanho_y/2)
+    eixos.set_zlim3d(0, tamanho_z)
+
+
+# Ajusta a escala dos eixos para as proporções de um objeto
+def ajustar_escala(eixos, objeto):
+    eixos.auto_scale_xyz(
+        objeto.matriz[0, :], objeto.matriz[1, :], objeto.matriz[2, :])
+
+
 # Normaliza a escala de todos os eixos para não distorcer a plotagem
 def normalizar_eixos(eixos):
 
